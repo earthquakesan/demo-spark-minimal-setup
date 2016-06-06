@@ -1,0 +1,18 @@
+version: '2'
+services:
+  spark-master:
+    image: bde2020/spark-master:1.5.1-hadoop2.6
+    hostname: spark-master
+    networks:
+      - spark
+    environment:
+      INIT_DAEMON_STEP: setup_spark
+  spark-worker:
+    image: bde2020/spark-worker:1.5.1-hadoop2.6
+    networks:
+      - spark
+    environment:
+        - SPARK_MASTER=spark://spark-master:7077
+
+networks:
+  spark:
